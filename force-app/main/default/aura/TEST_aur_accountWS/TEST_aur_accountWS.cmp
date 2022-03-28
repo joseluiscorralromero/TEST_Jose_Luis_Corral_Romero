@@ -1,0 +1,76 @@
+<aura:component controller = "TEST_cls_account_cc" implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global" >    
+    
+    <!-- TEST_aur_caseWS -->
+    <aura:attribute name="statusList" type="List"/>
+    <aura:attribute name="targetStatus" type="String"/>
+    <aura:attribute name="accountWraper" type="TEST_cls_account_cc.AccountResponse"/>
+    
+    <aura:attribute name="iban" type="String"/>
+    <aura:attribute name="accountStatus" type="String"/>
+    <aura:attribute name="product" type="String"/>
+    <aura:attribute name="transactions" type="List"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <div > 
+
+        <!-- Select new Status -->
+        <form class="slds-form--stacked">
+            <lightning:select name="targetStatusName" label="include the booking balance?" aura:id="targetStatusId" value="{!v.targetStatus}">
+                <aura:iteration items="{!v.statusList}" var="status">
+                    <option text="{!status.label}" value="{!status.id}" selected="{!status.selected}"/>
+                </aura:iteration>
+            </lightning:select>  
+        </form> 
+        <div><p>&nbsp;</p></div>
+        
+        <lightning:button variant="brand" label="Get Account Details" title="Get Account" onclick="{!c.getAccount}"/>
+        <div><p>&nbsp;</p></div>
+        iban: <ui:outputText value="{!v.iban}"/>
+        <div><p>&nbsp;</p></div>
+        accountStatus: <ui:outputText value="{!v.accountStatus}"/>
+        <div><p>&nbsp;</p></div>
+        product: <ui:outputText value="{!v.product}"/>
+        <div><p>&nbsp;</p></div>
+        
+        <div class="slds">
+            <div class="slds-box" aura:id="main">
+                <div aura:id="panelList">
+                    <header>
+                        <h2 class="slds-text-heading--small slds-m-bottom--small">transactions</h2>
+                    </header>
+                    <table class="slds-table slds-table--bordered slds-table--cell-buffer slds-no-row-hover">
+                        <tr>
+                            <th class="slds-text-heading--label">resourceId</th> 
+                            <th class="slds-text-heading--label">name</th>
+                            <th class="slds-text-heading--label">balanceType</th>
+                            <th class="slds-text-heading--label">amount</th>
+                            <th class="slds-text-heading--label">currency</th> 
+                            <th class="slds-text-heading--label">transactionDate</th> 
+                        </tr>
+                        <aura:iteration items="{!v.transactions}" var="trn">
+                            <tr> 
+                                <td>{!trn.resourceId}</td>
+                                <td>{!trn.name}</td>       
+                                <td>{!trn.balanceType}</td>
+                                <td>{!trn.amount.amount}</td>
+                                <td>{!trn.amount.currency0}</td>       
+                                <td>{!trn.transactionDate}</td>
+                            </tr>
+                        </aura:iteration>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--<aura:iteration items="{!v.transactions}" var="trn">
+            <ui:outputText value="{!trn.resourceId}"/>
+            <ui:outputText value="{!trn.name}"/>
+            <ui:outputText value="{!trn.balanceType}"/>
+            <ui:outputText value="{!trn.amount.amount}"/>
+            <ui:outputText value="{!trn.amount.currency0}"/>
+            <ui:outputText value="{!trn.transactionDate}"/>  
+        </aura:iteration>-->
+        
+    </div>
+    
+</aura:component>

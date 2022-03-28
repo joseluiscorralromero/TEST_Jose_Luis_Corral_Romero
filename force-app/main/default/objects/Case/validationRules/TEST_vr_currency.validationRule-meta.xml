@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TEST_vr_currency</fullName>
+    <active>true</active>
+    <description>Check if the pattern of Currency is correct: [A-Z]{3}</description>
+    <errorConditionFormula>AND(NOT(ISBLANK(TEST_fld_currency__c)),
+NOT(REGEX(TEST_fld_currency__c,&quot;^[A-Z]{3}$&quot;)))</errorConditionFormula>
+    <errorDisplayField>TEST_fld_currency__c</errorDisplayField>
+    <errorMessage>The pattern of Currency must be: [A-Z]{3}</errorMessage>
+</ValidationRule>

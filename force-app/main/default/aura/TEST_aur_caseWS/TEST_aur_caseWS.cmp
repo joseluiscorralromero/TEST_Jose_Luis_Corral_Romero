@@ -1,0 +1,31 @@
+<aura:component controller = "TEST_cls_case_cc" implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global" >    
+    
+    <!-- TEST_aur_caseWS -->
+    <aura:attribute name="currentStatus" type="String"/>
+    <aura:attribute name="statusList" type="List"/>
+    <aura:attribute name="targetStatus" type="String"/>
+    <aura:attribute name="authorizationGroup" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <div > 
+         <!-- Boton Refrescar Estado -->
+        <lightning:button variant="brand" label="Get current status" title="Get Status" onclick="{!c.getStatus}"/>
+        The current status is: <ui:outputText value="{!v.currentStatus}"/>	
+        <div><p>&nbsp;</p></div>
+
+        <!-- Select new Status -->
+        <form class="slds-form--stacked">
+            <lightning:select name="targetStatusName" label="Select the desired Status:" aura:id="targetStatusId" value="{!v.targetStatus}">
+                <aura:iteration items="{!v.statusList}" var="status">
+                    <option text="{!status.label}" value="{!status.id}" selected="{!status.selected}"/>
+                </aura:iteration>
+            </lightning:select>  
+        </form> 
+        <div><p>&nbsp;</p></div>
+        
+        <lightning:button variant="brand" label="Upload selected status" title="Update Status" onclick="{!c.updateStatus}"/>
+        Authorization Group: <ui:outputText value="{!v.authorizationGroup}"/>	   
+    </div>
+    
+</aura:component>
